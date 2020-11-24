@@ -8,7 +8,7 @@ const cors = require('cors');
 var app = express();
 
 // Mongo Database
-const db = require('./config/config.db');
+const db = require('../config/config.db');
 
 // Call the database connectivity function
 db();
