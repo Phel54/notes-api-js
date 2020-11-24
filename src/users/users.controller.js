@@ -56,43 +56,19 @@ exports.login = async (req, res, next) => {
 				message: 'user not Found/ Unapproved/ Inactive',
 			});
 		}
-		bcrypt
-			.compare(body.password, user.password)
-			.then((result) => {
-				if (result == false) {
-					throw new Error('Email or Password Incorrect');
-				}
-				// Create a token
-				const payload = {
-					userID: user._id,
-					userEmail: user.email,
-					phone: user.phone,
-					role:'User'
-					
-				};
-				const options = {
-					expiresIn: process.env.JWT_EXPIRES_IN,
-					issuer: process.env.JWT_ISSUER,				
-				};
+		res.status(200).json({
+			success: true,
+			message: 'Login Successful',
+			user: {
+				id: user._id,
+				name: user.name,
+				email: user.email,
+				phoneNumber: user.phone,
 
-				const secret = process.env.JWT_SECRET;
-				const token = jwt.sign(payload, secret, options);
+			},
+		});		
 
-				return res.status(200).json({
-					success: true,
-					message: 'Login Successful',
-					user: {
-						id: user._id,
-						name: user.name,
-						email: user.email,
-						phoneNumber: user.phone,
-						token: token,
-					},
-				});
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({

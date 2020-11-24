@@ -1,15 +1,13 @@
 const express = require('express');
-const validateToken = require('../users.auth.middleware').validateToken;
 const Users = require("./users.controller");
-// import authorize from "../authorizeUsers"
-const authorize = require("../authorizeUsers").authorize;
+
 
 
 module.exports = function (router) {
     router
         .route("/users")
         .post(Users.create)
-        .get(validateToken,authorize('Admin'),Users.getAll);
+        .get(Users.getAll);
 
     router  
         .route("/users/login")
@@ -17,17 +15,17 @@ module.exports = function (router) {
 
     router 
         .route("/users/getdetails/userid/:userid")
-        .get(validateToken,authorize('User','Admin'),Users.getUserDetails);
+        .get(Users.getUserDetails);
 
     router
 		.route('/users/userID/:userID')
 		// Update  Users By Id
-		.patch(validateToken,authorize('User'), Users.update)
-        .put(validateToken,authorize('User'), Users.update);
+		.patch(Users.update)
+        .put(Users.update);
         
     router
         .route("/users/userid/:userid")
-        .delete(validateToken,authorize('User'),Users.delete)
+        .delete(Users.delete)
 
     router
         .route('/users/recoverPassword')

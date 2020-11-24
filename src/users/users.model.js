@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const bcrypt = require('bcryptjs');
 const Joi = require('joi')
 
 const userSchema = new Schema(
@@ -64,7 +63,7 @@ userSchema.methods.joiValidate = (requestBody) => {
                 .trim()
                 .min(6)
                 .email()
-                .required()
+                .required()                
                 .messages({ 'string.empty': 'Please enter Email' }),
       
 
