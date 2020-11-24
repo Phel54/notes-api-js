@@ -1,7 +1,6 @@
 const User = require('./users.model');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const Email = require("../config/email")
+const jwt = require("jsonwebtoken")
+
 
 // Adding a user Account
 exports.create = async (req, res, next) => {
@@ -56,18 +55,34 @@ exports.login = async (req, res, next) => {
 				message: 'user not Found/ Unapproved/ Inactive',
 			});
 		}
-		res.status(200).json({
-			success: true,
-			message: 'Login Successful',
-			user: {
-				id: user._id,
-				name: user.name,
-				email: user.email,
-				phoneNumber: user.phone,
 
-			},
-		});		
+				// Create a token
+				const payload = {
+					userID: user._id,
+					userEmail: user.email,
+					phone: user.phone,
+					role:'User'
+					
+				};
+				const options = {
+					expiresIn: process.env.JWT_EXPIRES_IN,
+					issuer: process.env.JWT_ISSUER,				
+				};
 
+				const secret = process.env.JWT_SECRET;
+				const token = jwt.sign(payload, secret, options);
+
+				return res.status(200).json({
+					success: true,
+					message: 'Login Successful',
+					user: {
+						id: user._id,
+						name: user.name,
+						email: user.email,
+						phoneNumber: user.phone,
+						token: token,
+					},
+				});
 
 	} catch (error) {
 		console.log(error);
@@ -77,7 +92,6 @@ exports.login = async (req, res, next) => {
 		});
 	}
 };
-
 //Recover Password user
 exports.recoverPassword = async (req, res, next) => {
 	//finding user
