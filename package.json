@@ -1,0 +1,34 @@
+{
+  "name": "notes-api",
+  "version": "1.0.0",
+  "description": "This is a note api that allows users to create, update/edit, delete and read their notes",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Phel54/notes-api-js.git"
+  },
+  "keywords": [
+    "notes",
+    "blog",
+    "users",
+    "create",
+    "notes"
+  ],
+  "author": "Isichei Phelim Chijioke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Phel54/notes-api-js/issues"
+  },
+  "homepage": "https://github.com/Phel54/notes-api-js#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "joi": "^17.3.0",
+    "morgan": "^1.10.0"
+  }
+}
