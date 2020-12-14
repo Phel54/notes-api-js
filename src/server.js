@@ -8,7 +8,7 @@ const cors = require('cors');
 var app = express();
 
 // Mongo Database
-const db = require('../config/config.db');
+const db = require('./config/config.db');
 
 // Call the database connectivity function
 db();
@@ -37,6 +37,14 @@ app.get('/api/v1', (req, res) =>
 );
 
 
+
+//Users
+const userRoutes = require('./users/users.routes');
+userRoutes(router);
+
+//Notes
+const notesRoutes = require('./notes/notes.routes');
+notesRoutes(router);
 
 
 const PORT = process.env.PORT || 8000;

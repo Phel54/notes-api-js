@@ -9,7 +9,7 @@ module.exports = function (router) {
     router
         .route("/users")
         .post(Users.create)
-        .get(validateToken,authorize('Admin'),Users.getAll);
+        .get(validateToken,authorize('User'),Users.getAll);
 
     router  
         .route("/users/login")

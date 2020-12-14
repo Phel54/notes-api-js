@@ -22,9 +22,6 @@ exports.create = async (req, res, next) => {
 
 		await newuser.save();
 
-		// Email Send
-		await Email.NewUser(newuser.email,newuser.name.first)
-
 		return res.status(201).json({
 			success: true,
 			message: 'user Account Created',
@@ -60,7 +57,7 @@ exports.login = async (req, res, next) => {
 				const payload = {
 					userID: user._id,
 					userEmail: user.email,
-					phone: user.phone,
+					phone: user.phoneNumber,
 					role:'User'
 					
 				};
